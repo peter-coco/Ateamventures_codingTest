@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-const MainRequestListsWrap = styled.div``;
-const MainRequestListsTop = styled.div``;
-const MainRequestListsTopTitle = styled.div``;
-const MainRequestListsTopSubscription = styled.div``;
-const MainRequestListsTopDuedate = styled.div``;
-const MainRequestListsDivider = styled.div``;
-const MainRequestListsBottom = styled.div``;
-const MainRequestListsBottom = styled.div``;
+import MainRequestList from "./mainRequestList";
+
+const MainRequestListsWrap = styled.div`
+  margin-top: 32px;
+`;
 
 const MainRequestLists = () => {
-  return <MainRequestListsWrap></MainRequestListsWrap>;
+  return (
+    <MainRequestListsWrap>
+      <MainRequestList />
+    </MainRequestListsWrap>
+  );
 };
 export default MainRequestLists;
