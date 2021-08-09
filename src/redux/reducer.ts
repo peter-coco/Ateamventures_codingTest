@@ -15,11 +15,15 @@ export interface requestListContent {
 export interface GlobalState {
   currentRequestLists: requestListContent[];
   requestListOnConsultingToggle: boolean;
+  filteringMethodLists: string[];
+  filteringMaterialLists: string[];
 }
 
 const initialState: GlobalState = {
   currentRequestLists: [],
   requestListOnConsultingToggle: false,
+  filteringMethodLists: [],
+  filteringMaterialLists: [],
 };
 
 function reducer(
@@ -37,6 +41,38 @@ function reducer(
       return {
         ...state,
         requestListOnConsultingToggle: !state.requestListOnConsultingToggle,
+      };
+    case Actions.ADD_FILTERING_METHOD_LIST:
+      return {
+        ...state,
+        filteringMethodLists: [
+          ...state.filteringMethodLists,
+          action.payload.checkedList,
+        ],
+      };
+    case Actions.SUB_FILTERING_METHOD_LIST:
+      return {
+        ...state,
+        filteringMethodLists: state.filteringMethodLists.filter(
+          (e) => e !== action.payload.checkedList
+        ),
+      };
+
+    case Actions.ADD_FILTERING_MATERIAL_LIST:
+      return {
+        ...state,
+        filteringMaterialLists: [
+          ...state.filteringMaterialLists,
+          action.payload.checkedList,
+        ],
+      };
+
+    case Actions.SUB_FILTERING_MATERIAL_LIST:
+      return {
+        ...state,
+        filteringMaterialLists: state.filteringMaterialLists.filter(
+          (e) => e !== action.payload.checkedList
+        ),
       };
   }
   return state;

@@ -16,12 +16,19 @@ const MainRequestListsWrap = styled.div`
 
 const MainRequestLists = () => {
   const dispatch = useDispatch();
-  const [currentRequestLists, requestListOnConsultingToggle] = useSelector<
+  const [
+    currentRequestLists,
+    requestListOnConsultingToggle,
+    filteringMaterialLists,
+    filteringMethodLists,
+  ] = useSelector<
     GlobalState,
-    [requestListContent[], boolean]
+    [requestListContent[], boolean, string[], string[]]
   >((state) => [
     state.currentRequestLists,
     state.requestListOnConsultingToggle,
+    state.filteringMaterialLists,
+    state.filteringMethodLists,
   ]);
 
   useEffect(() => {
@@ -33,21 +40,34 @@ const MainRequestLists = () => {
           type: Actions.SET_CURRENT_REQUEST_LISTS,
           payload: { currentRequestLists: e ? e : [] },
         });
-        console.log(currentRequestLists);
+        // console.log(currentRequestLists);
       });
   }, []);
 
+  // console.log(filteringMethodLists);
+
   return (
     <MainRequestListsWrap>
-      {currentRequestLists.map((lists) =>
-        !requestListOnConsultingToggle ? (
-          <MainRequestList key={lists.id} lists={lists} />
-        ) : lists.status == "상담중" ? (
-          <MainRequestList key={lists.id} lists={lists} />
-        ) : (
-          ""
+      {currentRequestLists
+        .filter((lists) =>
+          filteringMethodLists.length
+            ? lists.method.some((e) => filteringMethodLists.includes(e))
+            : lists
         )
-      )}
+        .filter((lists) =>
+          filteringMaterialLists.length
+            ? lists.material.some((e) => filteringMaterialLists.includes(e))
+            : lists
+        )
+        .map((lists) =>
+          !requestListOnConsultingToggle ? (
+            <MainRequestList key={lists.id} lists={lists} />
+          ) : lists.status == "상담중" ? (
+            <MainRequestList key={lists.id} lists={lists} />
+          ) : (
+            ""
+          )
+        )}
     </MainRequestListsWrap>
   );
 };
