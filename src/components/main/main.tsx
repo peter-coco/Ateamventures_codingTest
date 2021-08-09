@@ -16,6 +16,8 @@ const MainWrap = styled.div`
 const MainOptionsWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
+  margin-top: 32px;
 `;
 
 const Main = () => {
