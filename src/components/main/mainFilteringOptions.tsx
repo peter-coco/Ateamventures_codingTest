@@ -16,6 +16,11 @@ const MainFilterOptions = styled.div`
   justify-content: center;
   align-items: center;
   gap: 12px;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid #2196f3;
+  }
 `;
 const MainFilterTitle = styled.div`
   font-size: 12px;
@@ -25,6 +30,9 @@ const MainFilterArrow = styled.div`
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
 `;
+
+const MainFilteringMethod = styled.div``;
+const MainFilteringMaterial = styled.div``;
 
 const MainFilteringOptions = () => {
   return (

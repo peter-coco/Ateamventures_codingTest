@@ -16,10 +16,13 @@ const MainRequestListsWrap = styled.div`
 
 const MainRequestLists = () => {
   const dispatch = useDispatch();
-  const [currentRequestLists] = useSelector<
+  const [currentRequestLists, requestListOnConsultingToggle] = useSelector<
     GlobalState,
-    [requestListContent[]]
-  >((state) => [state.currentRequestLists]);
+    [requestListContent[], boolean]
+  >((state) => [
+    state.currentRequestLists,
+    state.requestListOnConsultingToggle,
+  ]);
 
   useEffect(() => {
     fetch("http://localhost:4000/requests")
@@ -36,9 +39,15 @@ const MainRequestLists = () => {
 
   return (
     <MainRequestListsWrap>
-      {currentRequestLists.map((lists) => (
-        <MainRequestList key={lists.id} lists={lists} />
-      ))}
+      {currentRequestLists.map((lists) =>
+        !requestListOnConsultingToggle ? (
+          <MainRequestList key={lists.id} lists={lists} />
+        ) : lists.status == "상담중" ? (
+          <MainRequestList key={lists.id} lists={lists} />
+        ) : (
+          ""
+        )
+      )}
     </MainRequestListsWrap>
   );
 };

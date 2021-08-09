@@ -193,7 +193,7 @@ const MainRequestList = ({ lists }: { lists: requestListContent }) => {
               가공방식
             </MainRequestListsBottomSubsCriptionTitle>
             <MainRequestListsBottomSubsCriptionContext>
-              {lists.method}
+              {lists.method.map((e) => e + ", ")}
             </MainRequestListsBottomSubsCriptionContext>
           </MainRequestListsBottomSubsCription>
 
@@ -202,7 +202,7 @@ const MainRequestList = ({ lists }: { lists: requestListContent }) => {
               재료
             </MainRequestListsBottomSubsCriptionTitle>
             <MainRequestListsBottomSubsCriptionContext>
-              {lists.material}
+              {lists.material.map((e) => e + ", ")}
             </MainRequestListsBottomSubsCriptionContext>
           </MainRequestListsBottomSubsCription>
         </MainRequestListsBottomSubsCriptionWrap>

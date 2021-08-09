@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import Actions from "../../redux/actions";
+import { GlobalState } from "../../redux/reducer";
 
 const MainConsultingToggleOptionWrap = styled.div`
   display: flex;
@@ -13,6 +16,10 @@ const MainConsultingToggleBtn = styled.div`
   border-radius: 10px;
   display: flex;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const MainConsultingToggleBtnCircle = styled.div`
@@ -36,10 +43,34 @@ const MainConsultingToggleTitle = styled.div`
 `;
 
 const MainConsultingToggleOption = () => {
+  const dispatch = useDispatch();
+  const [requestListOnConsultingToggle] = useSelector<GlobalState, [boolean]>(
+    (state) => [state.requestListOnConsultingToggle]
+  );
+
+  const toggleViewConsultingFunc = () => {
+    dispatch({
+      type: Actions.SET_REQUEST_LISTS_ON_CONSULTING_TOGGLE,
+    });
+  };
+
   return (
     <MainConsultingToggleOptionWrap>
-      <MainConsultingToggleBtn>
-        <MainConsultingToggleBtnCircle />
+      <MainConsultingToggleBtn
+        style={{
+          // transform: requestListOnConsultingToggle ? "translateX(15px)" : "",
+          transition: "all 300ms",
+          backgroundColor: requestListOnConsultingToggle ? "#BBDEFB" : "",
+        }}
+        onClick={toggleViewConsultingFunc}
+      >
+        <MainConsultingToggleBtnCircle
+          style={{
+            transform: requestListOnConsultingToggle ? "translateX(15px)" : "",
+            transition: "all 300ms",
+            backgroundColor: requestListOnConsultingToggle ? "#2196F3" : "",
+          }}
+        />
       </MainConsultingToggleBtn>
       <MainConsultingToggleTitle>
         상담 중인 요청만 보기

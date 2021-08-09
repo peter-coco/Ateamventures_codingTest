@@ -14,10 +14,12 @@ export interface requestListContent {
 
 export interface GlobalState {
   currentRequestLists: requestListContent[];
+  requestListOnConsultingToggle: boolean;
 }
 
 const initialState: GlobalState = {
   currentRequestLists: [],
+  requestListOnConsultingToggle: false,
 };
 
 function reducer(
@@ -30,6 +32,11 @@ function reducer(
       return {
         ...state,
         currentRequestLists: action.payload.currentRequestLists,
+      };
+    case Actions.SET_REQUEST_LISTS_ON_CONSULTING_TOGGLE:
+      return {
+        ...state,
+        requestListOnConsultingToggle: !state.requestListOnConsultingToggle,
       };
   }
   return state;
