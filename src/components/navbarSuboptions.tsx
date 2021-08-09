@@ -77,13 +77,12 @@ const NavbarSuboptions = () => {
     (state) => state.navbarMenuToggle
   );
 
+  const navbarResetWidthLimit = 800;
+
   const dispatch = useDispatch();
   useEffect(() => {
     function resizeEventFunc() {
-      if (
-        window.innerWidth >
-        800 /*&& !headerMenuBtnActivate addEventListener가 시작되면서 얘는 고정이 되버림ggg*/
-      ) {
+      if (window.innerWidth > navbarResetWidthLimit) {
         dispatch({
           type: Actions.RESET_NAVBAR_MENU,
         });

@@ -37,11 +37,7 @@ const Main = () => {
     (state) => state.navbarMenuToggle
   );
   return (
-    <MainWrap
-    // style={{
-    //   backgroundColor: navbarMenuToggle ? "#808080" : "",
-    // }}
-    >
+    <MainWrap>
       <MainTitle />
       <MainOptionsWrap>
         <MainFilteringOptions />
