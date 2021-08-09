@@ -7,6 +7,8 @@ enum Actions {
 
   ADD_FILTERING_MATERIAL_LIST,
   SUB_FILTERING_MATERIAL_LIST,
+
+  RESET_FILTERING_OPTIONS,
 }
 
 export default Actions;

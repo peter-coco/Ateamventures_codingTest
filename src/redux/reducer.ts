@@ -74,6 +74,13 @@ function reducer(
           (e) => e !== action.payload.checkedList
         ),
       };
+
+    case Actions.RESET_FILTERING_OPTIONS:
+      return {
+        ...state,
+        filteringMaterialLists: [],
+        filteringMethodLists: [],
+      };
   }
   return state;
 }

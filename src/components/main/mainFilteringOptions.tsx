@@ -7,7 +7,9 @@ import { GlobalState } from "../../redux/reducer";
 
 const MainFilteringOptionsWrap = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const MainFilterOptionsSubsCription = styled.div`
@@ -15,15 +17,17 @@ const MainFilterOptionsSubsCription = styled.div`
   gap: 12px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 const MainFilterOptions = styled.div`
   border: 1px solid #939fa5;
   padding: 10px 20px;
   box-sizing: border-box;
+  /* background-color: #2196f3; */
   /* border: 1px solid #939fa5; */
   border-radius: 4px;
   display: flex;
-  cursor: pointer;
+
   position: relative;
 
   &:hover {
@@ -76,12 +80,31 @@ const MainFilteringSubOptionsListsTitle = styled.div`
   text-align: left;
 `;
 
+const MainFilterAllReset = styled.div`
+  display: flex;
+
+  cursor: pointer;
+`;
+const MainFilterAllResetIcon = styled.div``;
+const MainFilterAllResetTitle = styled.div`
+  color: #2196f3;
+  //styleName: 12pt - 400 (설명용);
+  font-family: Noto Sans KR;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0px;
+  /* text-align: left; */
+`;
+
 const MainFilteringOptions = () => {
   const dispatch = useDispatch();
 
-  const [filteringMaterialLists] = useSelector<GlobalState, [string[]]>(
-    (state) => [state.filteringMaterialLists]
-  );
+  const [filteringMaterialLists, filteringMethodLists] = useSelector<
+    GlobalState,
+    [string[], string[]]
+  >((state) => [state.filteringMaterialLists, state.filteringMethodLists]);
 
   const [toggleMethodSubOptions, setToggleMethodSubOptions] = useState(false);
   const [toggleMaterialSubOptions, setToggleMaterialSubOptions] =
@@ -131,19 +154,24 @@ const MainFilteringOptions = () => {
         },
       });
     }
-    // console.log(typeof e.target.name, filteringMethodLists);
-    // console.log(e.target.checked);
   };
 
-  // useEffect(() => {
-  //   console.log(filteringMaterialLists);
-  // }, [filteringMaterialLists]);
+  const resetFilteringOptions = () => {
+    dispatch({
+      type: Actions.RESET_FILTERING_OPTIONS,
+    });
+  };
 
   return (
     <MainFilteringOptionsWrap>
       <MainFilterOptions>
         <MainFilterOptionsSubsCription onClick={toggleMethodSubOptionsFunc}>
-          <MainFilterTitle>가공방식</MainFilterTitle>
+          <MainFilterTitle>
+            가공방식
+            {filteringMethodLists.length
+              ? `(${filteringMethodLists.length})`
+              : ""}
+          </MainFilterTitle>
           <MainFilterArrow />
         </MainFilterOptionsSubsCription>
         <MainFilteringSubOptions
@@ -171,11 +199,27 @@ const MainFilteringOptions = () => {
           </MainFilteringSubOptionsLists>
         </MainFilteringSubOptions>
       </MainFilterOptions>
-
-      <MainFilterOptions>
+      <MainFilterOptions
+        style={{
+          backgroundColor: toggleMaterialSubOptions ? "#1565C0" : "",
+        }}
+      >
         <MainFilterOptionsSubsCription onClick={toggleMaterialSubOptionsFunc}>
-          <MainFilterTitle>재료</MainFilterTitle>
-          <MainFilterArrow />
+          <MainFilterTitle
+            style={{
+              color: toggleMaterialSubOptions ? "#ffffff" : "",
+            }}
+          >
+            재료
+            {filteringMaterialLists.length
+              ? `(${filteringMaterialLists.length})`
+              : ""}
+          </MainFilterTitle>
+          <MainFilterArrow
+            style={{
+              borderTop: toggleMaterialSubOptions ? "6px solid #ffffff" : "",
+            }}
+          />
         </MainFilterOptionsSubsCription>
         <MainFilteringSubOptions
           style={{ display: toggleMaterialSubOptions ? "flex" : "none" }}
@@ -232,6 +276,14 @@ const MainFilteringOptions = () => {
           </MainFilteringSubOptionsLists>
         </MainFilteringSubOptions>
       </MainFilterOptions>
+      {filteringMaterialLists.length + filteringMethodLists.length ? (
+        <MainFilterAllReset onClick={resetFilteringOptions}>
+          <MainFilterAllResetIcon />
+          <MainFilterAllResetTitle>필터링 리셋</MainFilterAllResetTitle>
+        </MainFilterAllReset>
+      ) : (
+        ""
+      )}
     </MainFilteringOptionsWrap>
   );
 };
