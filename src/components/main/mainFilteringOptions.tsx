@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { findConfigFile } from "typescript";
 
 const MainFilteringOptionsWrap = styled.div`
   display: flex;

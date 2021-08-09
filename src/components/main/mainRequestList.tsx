@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
+import { GlobalState, requestListContent } from "../../redux/reducer";
+
 const MainRequestListWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,6 +20,7 @@ const MainRequestListWrap = styled.div`
 const MainRequestListsTop = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 const MainRequestListsTopTitle = styled.div`
   //styleName: 16pt - 600 (소제목);
@@ -130,16 +133,38 @@ const MainRequestListsBottomButtonChat = styled.div`
   /* background-color: #080808; */
 `;
 
-const MainRequestList = () => {
+const MainRequestListsTopCurrentStatus = styled.div`
+  height: 24px;
+  width: 50px;
+  right: 0px;
+  top: 0px;
+  border-radius: 12px;
+  padding: 2px, 8px, 2px, 8px;
+  border: 1px solid #ffa000;
+  font-size: 12px;
+  line-height: 24px;
+  text-align: center;
+  color: #ffa000;
+  position: absolute;
+`;
+
+const MainRequestList = ({ lists }: { lists: requestListContent }) => {
   return (
     <MainRequestListWrap>
       <MainRequestListsTop>
-        <MainRequestListsTopTitle>자동차 시제품 제작</MainRequestListsTopTitle>
+        <MainRequestListsTopTitle>{lists.title}</MainRequestListsTopTitle>
+        {lists.status == "상담중" ? (
+          <MainRequestListsTopCurrentStatus>
+            {lists.status}
+          </MainRequestListsTopCurrentStatus>
+        ) : (
+          ""
+        )}
         <MainRequestListsTopSubscription>
-          A 고객사
+          {lists.client}
         </MainRequestListsTopSubscription>
         <MainRequestListsTopDuedate>
-          2020.12.13까지 납기
+          {lists.due}까지 납기
         </MainRequestListsTopDuedate>
       </MainRequestListsTop>
       <MainRequestListsDivider />
@@ -150,7 +175,7 @@ const MainRequestList = () => {
               도면개수
             </MainRequestListsBottomSubsCriptionTitle>
             <MainRequestListsBottomSubsCriptionContext>
-              111
+              {lists.count}
             </MainRequestListsBottomSubsCriptionContext>
           </MainRequestListsBottomSubsCription>
 
@@ -159,7 +184,7 @@ const MainRequestList = () => {
               총 수량
             </MainRequestListsBottomSubsCriptionTitle>
             <MainRequestListsBottomSubsCriptionContext>
-              111
+              {lists.amount}
             </MainRequestListsBottomSubsCriptionContext>
           </MainRequestListsBottomSubsCription>
 
@@ -168,7 +193,7 @@ const MainRequestList = () => {
               가공방식
             </MainRequestListsBottomSubsCriptionTitle>
             <MainRequestListsBottomSubsCriptionContext>
-              111
+              {lists.method}
             </MainRequestListsBottomSubsCriptionContext>
           </MainRequestListsBottomSubsCription>
 
@@ -177,7 +202,7 @@ const MainRequestList = () => {
               재료
             </MainRequestListsBottomSubsCriptionTitle>
             <MainRequestListsBottomSubsCriptionContext>
-              111
+              {lists.material}
             </MainRequestListsBottomSubsCriptionContext>
           </MainRequestListsBottomSubsCription>
         </MainRequestListsBottomSubsCriptionWrap>

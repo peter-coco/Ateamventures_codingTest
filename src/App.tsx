@@ -7,6 +7,9 @@ import styled from "styled-components";
 import Navbar from "./components/navbar";
 import Main from "./components/main/main";
 
+import { Provider } from "react-redux";
+import store from "./redux/index";
+
 const BackgroudWrap = styled.div`
   width: 100vw;
   height: 100vh;
@@ -15,10 +18,12 @@ const BackgroudWrap = styled.div`
 
 function App() {
   return (
-    <BackgroudWrap>
-      <Navbar />
-      <Main />
-    </BackgroudWrap>
+    <Provider store={store}>
+      <BackgroudWrap>
+        <Navbar />
+        <Main />
+      </BackgroudWrap>
+    </Provider>
   );
 }
 
