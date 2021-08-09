@@ -8,7 +8,7 @@ import { GlobalState } from "../../redux/reducer";
 const MainFilteringOptionsWrap = styled.div`
   display: flex;
   gap: 10px;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 `;
 

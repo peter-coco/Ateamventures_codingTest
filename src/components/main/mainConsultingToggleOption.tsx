@@ -8,6 +8,10 @@ const MainConsultingToggleOptionWrap = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;
+
+  /* @media (max-width: 1000px) {
+    display: none;
+  } */
 `;
 const MainConsultingToggleBtn = styled.div`
   width: 34px;

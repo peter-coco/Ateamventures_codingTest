@@ -17,6 +17,7 @@ export interface GlobalState {
   requestListOnConsultingToggle: boolean;
   filteringMethodLists: string[];
   filteringMaterialLists: string[];
+  navbarMenuToggle: boolean;
 }
 
 const initialState: GlobalState = {
@@ -24,6 +25,7 @@ const initialState: GlobalState = {
   requestListOnConsultingToggle: false,
   filteringMethodLists: [],
   filteringMaterialLists: [],
+  navbarMenuToggle: false,
 };
 
 function reducer(
@@ -80,6 +82,18 @@ function reducer(
         ...state,
         filteringMaterialLists: [],
         filteringMethodLists: [],
+      };
+
+    case Actions.TOGGLE_NAVBAR_MENU:
+      return {
+        ...state,
+        navbarMenuToggle: !state.navbarMenuToggle,
+      };
+
+    case Actions.RESET_NAVBAR_MENU:
+      return {
+        ...state,
+        navbarMenuToggle: false,
       };
   }
   return state;

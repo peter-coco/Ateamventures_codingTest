@@ -5,6 +5,7 @@ import "./App.css";
 import styled from "styled-components";
 
 import Navbar from "./components/navbar";
+import NavbarSuboptions from "./components/navbarSuboptions";
 import Main from "./components/main/main";
 
 import { Provider } from "react-redux";
@@ -20,6 +21,7 @@ function App() {
   return (
     <Provider store={store}>
       <BackgroudWrap>
+        <NavbarSuboptions />
         <Navbar />
         <Main />
       </BackgroudWrap>

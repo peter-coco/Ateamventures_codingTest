@@ -9,6 +9,9 @@ enum Actions {
   SUB_FILTERING_MATERIAL_LIST,
 
   RESET_FILTERING_OPTIONS,
+
+  TOGGLE_NAVBAR_MENU,
+  RESET_NAVBAR_MENU,
 }
 
 export default Actions;
